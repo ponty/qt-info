@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT += gui-private core-private
+#QT += gui-private core-private
 QT += opengl
 
 TARGET = qt-info

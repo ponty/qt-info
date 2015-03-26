@@ -15,7 +15,7 @@
 
 #if QT_VERSION >= 0x050000
 // Qt5 code
-#include <qpa/qplatformintegration.h>
+//#include <qpa/qplatformintegration.h>
 #else
 // Qt4 code
 
