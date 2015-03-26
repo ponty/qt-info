@@ -8,4 +8,4 @@ script:
  - cd build 
  - qmake ../qt-info.pro 
  - make
- - qt-info
+ - ./qt-info
