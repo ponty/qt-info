@@ -1,0 +1,7 @@
+language: c++
+install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -y qt4-qmake libqt4-dev
+
+script:  
+ - mkdir -p build && cd build && qmake ../qt-info.pro && make && cd ..
