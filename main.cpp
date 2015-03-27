@@ -12,6 +12,7 @@
 //#include <qpa/qguiapplication_p.h>
 #include <QGLWidget>
 #include <QScreen>
+#include <QFontDatabase>
 
 #if QT_VERSION >= 0x050000
 // Qt5 code
@@ -46,14 +47,14 @@ int main(int argc, char *argv[])
 #endif
     qDebug() << "WordSize: " << ( sizeof( void * ) <<3 ) ;
 
-//    if (QLibraryInfo::isDebugBuild())
-//    {
-//        qDebug() << "QT build: DEBUG" ;
-//    }
-//    else
-//    {
-//        qDebug() << "QT build: RELEASE" ;
-//    }
+    //    if (QLibraryInfo::isDebugBuild())
+    //    {
+    //        qDebug() << "QT build: DEBUG" ;
+    //    }
+    //    else
+    //    {
+    //        qDebug() << "QT build: RELEASE" ;
+    //    }
 #ifdef QT_DEBUG
     qDebug() << "QT build: DEBUG" ;
 #else
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
     qDebug() << "PLATFORM RasterGLSurface:" <<  pi->hasCapability(QPlatformIntegration::RasterGLSurface);
     qDebug() << "PLATFORM AllGLFunctionsQueryable:" <<  pi->hasCapability(QPlatformIntegration::AllGLFunctionsQueryable);
     qDebug() << "PLATFORM themeNames:" <<  pi->themeNames();
-//    qDebug() << "PLATFORM openGLModuleType:" <<  pi->openGLModuleType();
+    //    qDebug() << "PLATFORM openGLModuleType:" <<  pi->openGLModuleType();
 #endif
     //QOpenGLContext *currentContext = QOpenGLContext::currentContext();
     //qDebug() << "	GLXContext:" <<      currentContext;
@@ -137,40 +138,40 @@ int main(int argc, char *argv[])
 
 
     //qDebug() << "	GLX:" <<     pi->nativeResourceForContext("GLXContext", currentContext) != 0;
-//    EGLDisplay* m_eglDisplay = static_cast<EGLDisplay*>(
-//                pi->nativeResourceForContext("eglDisplay", currentContext));
-//    EGLConfig* m_eglConfig = static_cast<EGLConfig*>(
-//                pi->nativeResourceForContext("eglConfig", currentContext));
+    //    EGLDisplay* m_eglDisplay = static_cast<EGLDisplay*>(
+    //                pi->nativeResourceForContext("eglDisplay", currentContext));
+    //    EGLConfig* m_eglConfig = static_cast<EGLConfig*>(
+    //                pi->nativeResourceForContext("eglConfig", currentContext));
 
-//    QOpenGLContext* m_context = new QOpenGLContext();
-//    qDebug() << m_context->format();
-//    //if (screen)
-//    //    m_context->setScreen(screen);
-//    qDebug() << m_context->format();
-//    //m_context->setFormat(format);
-//    qDebug() << m_context->format();
-//    //if (share)
-//    //    m_context->setShareContext(share->m_context);
-//    qDebug() << m_context->format();
-//    m_context->create();
-//    qDebug() << m_context->format();
+    //    QOpenGLContext* m_context = new QOpenGLContext();
+    //    qDebug() << m_context->format();
+    //    //if (screen)
+    //    //    m_context->setScreen(screen);
+    //    qDebug() << m_context->format();
+    //    //m_context->setFormat(format);
+    //    qDebug() << m_context->format();
+    //    //if (share)
+    //    //    m_context->setShareContext(share->m_context);
+    //    qDebug() << m_context->format();
+    //    m_context->create();
+    //    qDebug() << m_context->format();
 
-//    qDebug() << app.instance();
-//    qDebug() << QCoreApplication::instance();
-//    QGLWidget* _mainGL = new QGLWidget();
-//    _mainGL->makeCurrent();
+    //    qDebug() << app.instance();
+    //    qDebug() << QCoreApplication::instance();
+    //    QGLWidget* _mainGL = new QGLWidget();
+    //    _mainGL->makeCurrent();
 
-//    //GLenum err = glewInit();
-//    //if (GLEW_OK != err)
-//    //{
-//    //    throw Core::InsufficientVideoCard("GLEW initiation failed", (const char*)glewGetErrorString(err));
-//    //}
+    //    //GLenum err = glewInit();
+    //    //if (GLEW_OK != err)
+    //    //{
+    //    //    throw Core::InsufficientVideoCard("GLEW initiation failed", (const char*)glewGetErrorString(err));
+    //    //}
 
-//    qDebug() << "OpenGL Versions Supported: " << QGLFormat::openGLVersionFlags();
+    //    qDebug() << "OpenGL Versions Supported: " << QGLFormat::openGLVersionFlags();
 
-//    QString versionString(QLatin1String(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
-//    qDebug() << "Driver Version String:" << versionString;
-//    qDebug() << "Current Context:" << _mainGL->format();
+    //    QString versionString(QLatin1String(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
+    //    qDebug() << "Driver Version String:" << versionString;
+    //    qDebug() << "Current Context:" << _mainGL->format();
 
 
 
@@ -230,6 +231,24 @@ int main(int argc, char *argv[])
     qDebug() << "   HasOverlay:" << glFormat.testOption(QGL::HasOverlay);
     qDebug() << "   SampleBuffers:" << glFormat.testOption(QGL::SampleBuffers);
     qDebug() << "   DeprecatedFunctions:" << glFormat.testOption(QGL::DeprecatedFunctions);
+
+
+    qDebug() << "------------------------------------------------------" ;
+    qDebug() << "Fonts" ;
+    qDebug() << "------------------------------------------------------" ;
+    QFontDatabase database;
+    foreach (const QString &family, database.families())  {
+        qDebug() << family;
+        foreach (const QString &style, database.styles(family))  {
+            qDebug() << "    " << style;
+
+            QString sizes;
+            foreach (int points, database.smoothSizes(family, style))
+                sizes += QString::number(points) + " ";
+
+            qDebug() << "    " << "    " << sizes;
+        }
+    }
 }
 
 
